@@ -153,14 +153,31 @@ const Records = ({ route }) => {
     const ba_id = fetchedUser.ba_id;
 
     const isNetwork = await handleNewtwork();
+    console.log(isNetwork, "net");
 
     if (isNetwork) {
       if (isNetwork.isConnected && isNetwork.isInternetReachable) {
         mutate({ formattedDate, formID, ba_id });
-      } else {
+      }
+
+      if (isNetwork.isConnected === false) {
         Notifier.showNotification({
           title: "Network Error",
           description: "No network access, Please check your network!",
+          Component: NotifierComponents.Notification,
+          componentProps: {
+            imageSource: require("../assets/image/no-network.png"),
+            containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
+            titleStyle: { color: "#fff" },
+            descriptionStyle: { color: "#fff" },
+          },
+        });
+      }
+
+      if (isNetwork.isInternetReachable === false) {
+        Notifier.showNotification({
+          title: "Network Error",
+          description: "No internet access, Please check your internet!",
           Component: NotifierComponents.Notification,
           componentProps: {
             imageSource: require("../assets/image/no-network.png"),
@@ -185,7 +202,7 @@ const Records = ({ route }) => {
     if (isOffline) {
       Notifier.showNotification({
         title: "Network Error",
-        description: "No network Íaccess, Please check your network!",
+        description: "No network access, Please check your network!",
         Component: NotifierComponents.Notification,
         componentProps: {
           imageSource: require("../assets/image/no-network.png"),
