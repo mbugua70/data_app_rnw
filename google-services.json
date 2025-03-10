@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "680149928267",
+    "project_id": "dataappfiles",
+    "storage_bucket": "dataappfiles.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680149928267:android:f2d8d1829776f50bf700ce",
+        "android_client_info": {
+          "package_name": "com.mbugua_code.data_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiNs21PufTxkYYioITrjb56IuYmq7ggzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
