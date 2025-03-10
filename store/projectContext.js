@@ -86,7 +86,9 @@ function formInputsReducer (state, action) {
 function formInputsTwoReducer (state, action) {
   switch (action.type) {
     case "ADDINPUTFORMSTWO":
-      return [...action.payload];
+      if(state.length > 0) {
+        return [...action.payload];
+      }
     default:
       return state;
   }

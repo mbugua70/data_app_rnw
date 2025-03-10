@@ -55,6 +55,7 @@ const Profile = () => {
       { text: "Cancel", style: "cancel" },
     ]))
 
+   Platform.OS === 'web' && (
     Swal.fire({
       title: "Sign out!",
       text: "Are you sure you want to sign out?",
@@ -67,7 +68,8 @@ const Profile = () => {
       if (result.isConfirmed) {
         authctx.logout();
       }
-    });
+    })
+   );
   }
 
   return (

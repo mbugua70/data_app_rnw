@@ -96,11 +96,16 @@ const FormItem = ({
         {/* records */}
 
         <View style={styles.flexContainerTwo}>
-          {!isPending &&  (
-            <Text style={styles.overalRecord}>{overall.length}</Text>
+          {!isPending && (
+            <Text style={styles.overalRecord}>100</Text>
           )}
           {isPending && (
-            <ActivityIndicator animating={true} color={MD2Colors.white} />
+            <ActivityIndicator
+              animating={true}
+              color={
+                overall.length === 0 ? MD2Colors.white : MD2Colors.amberA700
+              }
+            />
           )}
           <Text style={styles.overall}>Overall</Text>
         </View>
@@ -110,17 +115,22 @@ const FormItem = ({
             <Button
               buttonColor={overall.length === 0 ? "" : "#819c79"}
               labelStyle={{ fontSize: 10, paddingVertical: 0, lineHeight: 12 }}
-              style={[styles.button, Platform.OS === 'web' ? {width: 110, alignItems: 'flex-start'} : {width: 90}]}
+              style={[
+                styles.button,
+                Platform.OS === "web"
+                  ? { width: 110, alignItems: "flex-start" }
+                  : { width: 90 },
+              ]}
               mode={button.mode}
               icon={() => {
                 return (
                   // Platform.OS !== "web" && (
-                    <Avatar.Icon
-                      size={24}
-                      icon='eye-circle'
-                      style={styles.iconAvator}
-                      color='#819c79'
-                    />
+                  <Avatar.Icon
+                    size={24}
+                    icon='eye-circle'
+                    style={styles.iconAvator}
+                    color='#819c79'
+                  />
                   // )
                 );
               }}
@@ -163,8 +173,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-
-
     //  height: 30,
   },
 
@@ -178,6 +186,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   flexContainerTwo: {
+    height: 40,
     flexDirection: "row",
     alignItems: "center",
   },
