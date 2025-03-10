@@ -49,6 +49,7 @@ const FormContainerTwo = ({
   const {
     formInputData,
     formsSelectData,
+    addFormInputs,
     addFormInputsTwo,
     formInputDataTwo,
     editedData,
@@ -136,7 +137,9 @@ const FormContainerTwo = ({
       } else {
         let filteredArray = [];
         filteredArray.push(data);
-        addFormInputsTwo(filteredArray);
+        console.log(filteredArray, "refresh inputs")
+        // addFormInputsTwo(filteredArray);
+        addFormInputs(filteredArray);
       }
     },
   });
@@ -156,11 +159,6 @@ const FormContainerTwo = ({
   }, [formInputData, formID, formInputDataTwo]);
 
   function updateInputValueHandler(field_id, enteredValue) {
-    // setFormState((prevState) => ({
-    //   ...prevState,
-    //   [field_id]: enteredValue, // Update only the specific field
-    // }));
-
     setFormState((prevState) => ({
       ...prevState,
       [field_id]:
@@ -381,37 +379,6 @@ const FormContainerTwo = ({
     }
 
     const baID = user?.ba_id || "Unknown";
-
-    // internet connection checking
-    // if (isOffline) {
-    //   Notifier.showNotification({
-    //     title: "Network Error",
-    //     description: "No network access, Please check your network!",
-    //     Component: NotifierComponents.Notification,
-    //     componentProps: {
-    //       imageSource: require("../assets/image/no-network.png"),
-    //       containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
-    //       titleStyle: { color: "#fff" },
-    //       descriptionStyle: { color: "#fff" },
-    //     },
-    //   });
-    //   return;
-    // }
-
-    // if (!isInternetReachable) {
-    //   Notifier.showNotification({
-    //     title: "Network Error",
-    //     description: "No internet access!",
-    //     Component: NotifierComponents.Notification,
-    //     componentProps: {
-    //       imageSource: require("../assets/image/no-network.png"),
-    //       containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
-    //       titleStyle: { color: "#fff" },
-    //       descriptionStyle: { color: "#fff" },
-    //     },
-    //   });
-    //   return;
-    // }
 
     // mutation func
     mutateRefetch({ baID, formID, formTitle });

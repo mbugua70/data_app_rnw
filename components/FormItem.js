@@ -97,7 +97,7 @@ const FormItem = ({
 
         <View style={styles.flexContainerTwo}>
           {!isPending && (
-            <Text style={styles.overalRecord}>100</Text>
+            <Text style={styles.overalRecord}>{overall.length}</Text>
           )}
           {isPending && (
             <ActivityIndicator
