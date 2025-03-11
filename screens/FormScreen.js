@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 import { Notifier, NotifierComponents } from "react-native-notifier";
-import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
+import { View, Text, FlatList, StyleSheet, RefreshControl, Platform } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useIsFocused } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
@@ -55,7 +55,7 @@ const FormScreen = ({ navigation, route }) => {
       setIsOffline(!state.isConnected);
       setIsInternetReachable(state.isInternetReachable);
 
-      if (!state.isConnected) {
+      if (!state.isConnected && Platform.OS !== 'web') {
         Notifier.showNotification({
           title: "Network Error",
           description: "No network access, Please check your network!",
@@ -69,7 +69,7 @@ const FormScreen = ({ navigation, route }) => {
         });
       }
 
-      if (!state.isInternetReachable) {
+      if (!state.isInternetReachable && Platform.OS !== 'web') {
         Notifier.showNotification({
           title: "Network Error",
           description: "No internet access!",

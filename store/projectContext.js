@@ -74,26 +74,16 @@ function formNumberReducer(state, action) {
   }
 }
 
-function formInputsReducer(state, action) {
+
+
+function formInputsReducer (state, action) {
   switch (action.type) {
     case "ADDINPUTFORMS":
-      return state.map(form => {
-        const updatedForm = action.payload.find(item => item.form_id === form.form_id);
-        return updatedForm ? { ...form, inputs: updatedForm.inputs } : form;
-      });
+      return [...action.payload];
     default:
       return state;
   }
 }
-
-// function formInputsReducer (state, action) {
-//   switch (action.type) {
-//     case "ADDINPUTFORMS":
-//       return [...action.payload];
-//     default:
-//       return state;
-//   }
-// }
 
 function formInputsTwoReducer (state, action) {
   switch (action.type) {

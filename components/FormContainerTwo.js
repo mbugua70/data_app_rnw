@@ -137,9 +137,7 @@ const FormContainerTwo = ({
       } else {
         let filteredArray = [];
         filteredArray.push(data);
-        console.log(filteredArray, "refresh inputs")
-        // addFormInputsTwo(filteredArray);
-        addFormInputs(filteredArray);
+        addFormInputsTwo(filteredArray);
       }
     },
   });

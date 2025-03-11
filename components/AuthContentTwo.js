@@ -28,12 +28,14 @@ function AuthContentTwo({
   const [credentialsInvalid, setCredentialsInvalid] = useState({});
 
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsOffline(!state.isConnected);
-      setIsInternetReachable(state.isInternetReachable);
-  });
+    if(Platform.OS !== 'web'){
+      const unsubscribe = NetInfo.addEventListener((state) => {
+        setIsOffline(!state.isConnected);
+        setIsInternetReachable(state.isInternetReachable);
+    });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, []);
 
   async function submitHandler(credentials) {

@@ -8,6 +8,7 @@ import {
   StyleSheet,
   FlatList,
   RefreshControl,
+  Platform,
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { ProjectContext } from "../store/projectContext";
@@ -59,7 +60,7 @@ const Home = ({ navigation }) => {
       setIsOffline(!state.isConnected);
       setIsInternetReachable(state.isInternetReachable);
 
-      if (!state.isConnected) {
+      if (!state.isConnected && Platform.OS !== 'web') {
         Notifier.showNotification({
           title: "Network Error",
           description: "No network access, Please check your network!",
@@ -73,7 +74,7 @@ const Home = ({ navigation }) => {
         });
       }
 
-      if (!state.isInternetReachable) {
+      if (!state.isInternetReachable && Platform.OS !== 'web') {
         Notifier.showNotification({
           title: "Network Error",
           description: "No internet access!",

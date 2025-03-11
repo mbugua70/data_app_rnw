@@ -1,6 +1,6 @@
 import NetInfo from "@react-native-community/netinfo";
 import { useState, useEffect } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Notifier, NotifierComponents } from "react-native-notifier";
 import { GlobalStyles } from "../Constants/Globalcolors";
@@ -24,40 +24,42 @@ function AuthContent({
   });
 
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsOffline(!state.isConnected);
-      setIsInternetReachable(state.isInternetReachable);
+    if(Platform.OS !== 'web'){
+      const unsubscribe = NetInfo.addEventListener((state) => {
+        setIsOffline(!state.isConnected);
+        setIsInternetReachable(state.isInternetReachable);
 
-      if (!state.isConnected) {
-        Notifier.showNotification({
-          title: "Network Error",
-          description: "No network access, Please check your network!",
-          Component: NotifierComponents.Notification,
-          componentProps: {
-            imageSource: require("../assets/image/no-network.png"),
-            containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
-            titleStyle: { color: "#fff" },
-            descriptionStyle: { color: "#fff" },
-          },
-        });
-      }
+        if (!state.isConnected) {
+          Notifier.showNotification({
+            title: "Network Error",
+            description: "No network access, Please check your network!",
+            Component: NotifierComponents.Notification,
+            componentProps: {
+              imageSource: require("../assets/image/no-network.png"),
+              containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
+              titleStyle: { color: "#fff" },
+              descriptionStyle: { color: "#fff" },
+            },
+          });
+        }
 
-      if (!state.isInternetReachable) {
-        Notifier.showNotification({
-          title: "Network Error",
-          description: "No internet access!",
-          Component: NotifierComponents.Notification,
-          componentProps: {
-            imageSource: require("../assets/image/no-network.png"),
-            containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
-            titleStyle: { color: "#fff" },
-            descriptionStyle: { color: "#fff" },
-          },
-        });
-      }
-    });
+        if (!state.isInternetReachable) {
+          Notifier.showNotification({
+            title: "Network Error",
+            description: "No internet access!",
+            Component: NotifierComponents.Notification,
+            componentProps: {
+              imageSource: require("../assets/image/no-network.png"),
+              containerStyle: { backgroundColor: GlobalStyles.colors.error500 },
+              titleStyle: { color: "#fff" },
+              descriptionStyle: { color: "#fff" },
+            },
+          });
+        }
+      });
 
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, []);
 
   function submitHandler(credentials) {
@@ -81,7 +83,7 @@ function AuthContent({
       return;
     }
 
-    if (isOffline) {
+    if (isOffline && Platform.OS !== 'web') {
       Notifier.showNotification({
         title: "Network Error",
         description: "No network access, Please check your network!",
@@ -94,7 +96,7 @@ function AuthContent({
         },
       });
       return;
-    } else if (!isInternetReachable) {
+    } else if (!isInternetReachable && Platform.OS !== 'web') {
       Notifier.showNotification({
         title: "Network Error",
         description: "No internet access!",
@@ -113,7 +115,18 @@ function AuthContent({
   }
 
   return (
-    <View style={styles.authContent}>
+    <View
+      style={[
+        styles.authContent,
+        Platform.OS !== "web"
+          ? {
+              shadowColor: "black",
+              shadowOffset: { width: 1, height: 1 },
+              shadowOpacity: 0.35,
+              shadowRadius: 4,
+            }
+          : "",
+      ]}>
       <FormContainer
         isPending={isPending}
         isUpdating={isUpdating}
@@ -136,9 +149,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     // backgroundColor: Colors.primary800,
     // elevation: 2,
-    shadowColor: "black",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.35,
-    shadowRadius: 4,
   },
 });
